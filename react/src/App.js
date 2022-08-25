@@ -7,6 +7,8 @@ import Create from './community/Create';
 import List from './community/List';
 import Detail from './community/Detail';
 import Edit from './community/Edit';
+import Login from './user/Login';
+import Join from './user/Join';
 
 function App() {
 	return (
@@ -19,6 +21,8 @@ function App() {
 				<Route path='/create' element={<Create />} />
 				<Route path='/detail/:num' element={<Detail />} />
 				<Route path='/edit/:num' element={<Edit />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/join' element={<Join />} />
 			</Routes>
 		</>
 	);

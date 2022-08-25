@@ -17,11 +17,13 @@ const MainWrap = styled.main`
 			label {
 				display: block;
 				font: 16px/1 'arial';
-				color: #555;
+				color: #777;
 				margin-bottom: 5px;
 				display: block;
 			}
 			input[type='text'],
+			input[type='email'],
+			input[type='password'],
 			textarea {
 				width: 50%;
 				min-width: 300px;
@@ -38,6 +40,7 @@ const MainWrap = styled.main`
 				color: #fff;
 				cursor: pointer;
 				border: none;
+				margin-right: 10px;
 			}
 		}
 	}
