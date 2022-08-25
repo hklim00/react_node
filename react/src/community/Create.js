@@ -32,17 +32,14 @@ function Create() {
 	return (
 		<Layout name={'Post'}>
 			<label htmlFor='tit'>TITLE</label>
-			<br />
 			<input
 				type='text'
 				id='tit'
 				value={Title}
 				onChange={(e) => setTitle(e.target.value)}
 			/>
-			<br />
 
 			<label htmlFor='con'>CONTENT</label>
-			<br />
 			<textarea
 				name='con'
 				id='con'
