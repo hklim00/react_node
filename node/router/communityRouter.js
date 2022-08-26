@@ -4,24 +4,30 @@ const router = express.Router();
 // Post 모델 불러옴
 const { Post } = require('../model/postSchema.js');
 const { Counter } = require('../model/counterSchema.js');
+const { User } = require('../model/userSchema.js');
 
 // create
 router.post('/create', (req, res) => {
+	const temp = req.body;
+
 	Counter.findOne({ name: 'counter' })
 		.exec()
 		.then((doc) => {
-			const PostModel = new Post({
-				title: req.body.title,
-				content: req.body.content,
-				communityNum: doc.communityNum,
-			});
+			temp.cummunityNum = doc.communityNum;
 
-			PostModel.save().then(() => {
-				Counter.updateOne(
-					{ name: 'counter' },
-					{ $inc: { communityNum: 1 } }
-				).then(() => res.json({ success: true }));
-			});
+			User.findOne({ uid: temp.uid })
+				.exec()
+				.then((doc) => {
+					temp.write = doc._id;
+
+					const PostModel = new Post(temp);
+					PostModel.save().then(() => {
+						Counter.updateOne(
+							{ name: 'counter' },
+							{ $inc: { communityNum: 1 } }
+						).then(() => res.json({ success: true }));
+					});
+				});
 		})
 		.catch((err) => console.log(err));
 });
@@ -29,6 +35,7 @@ router.post('/create', (req, res) => {
 // list
 router.post('/read', (req, res) => {
 	Post.find()
+		.populate('writer')
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
@@ -42,6 +49,7 @@ router.post('/read', (req, res) => {
 // detail
 router.post('/detail', (req, res) => {
 	Post.findOne({ communityNum: req.body.num })
+		.populate('writer')
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, detail: doc });

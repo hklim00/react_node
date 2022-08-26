@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Layout from '../common/Layout';
 
@@ -18,10 +19,10 @@ const BtnSet = styled.div`
 function Detail() {
 	const navigate = useNavigate();
 	const params = useParams();
-	console.log('params', params);
+	const user = useSelector((store) => store.user);
 
 	const [Detail, setDetail] = useState(null);
-	console.log('detail', Detail);
+
 	const item = {
 		num: params.num,
 	};
@@ -62,13 +63,17 @@ function Detail() {
 					<DetailWrap>
 						<h2>{Detail.title}</h2>
 						<p>{Detail.content}</p>
+						<br />
+						<p>Write : {Detail.writer.displayName}</p>
 					</DetailWrap>
-					<BtnSet>
-						<button>
-							<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>
-						</button>
-						<button onClick={handleDelete}>Delete</button>
-					</BtnSet>
+					{user.uid === Detail.writeruid && (
+						<BtnSet>
+							<button>
+								<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>
+							</button>
+							<button onClick={handleDelete}>Delete</button>
+						</BtnSet>
+					)}
 				</>
 			)}
 		</Layout>

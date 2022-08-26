@@ -36,6 +36,8 @@ function List() {
 						<h2>
 							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 						</h2>
+						<br />
+						{/* <p>Write : {post.writer.displayName}</p> */}
 					</Item>
 				);
 			})}

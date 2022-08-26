@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from '../firebase';
+import axios from 'axios';
 
 const BtnSet = styled.div`
 	margin-top: 20px;
@@ -17,8 +18,9 @@ function Join() {
 
 	const handleJoin = async () => {
 		if (!(Name && Email && Pwd1 && Pwd2))
-			return alert('모든양식을 입력하세요.');
-		if (Pwd1 !== Pwd2) return alert('비밀번호를 동일하게 입력하세요.');
+			return alert('Please enter all forms.');
+		if (Pwd1 !== Pwd2) return alert('Please enter the same password.');
+		if (Pwd1.length < 6) return alert('Please enter latest 6 word');
 
 		let createUser = await firebase
 			.auth()
@@ -26,8 +28,23 @@ function Join() {
 		await createUser.user.updateProfile({
 			displayName: Name,
 		});
-		console.log(createUser.user);
-		navigate('/login');
+
+		const item = {
+			email: createUser.user.multiFactor.user.email,
+			displayName: createUser.user.multiFactor.user.displayName,
+			uid: createUser.user.multiFactor.user.uid,
+		};
+
+		firebase.auth().signOut();
+
+		axios.post('api/user/join', item).then((res) => {
+			if (res.data.success) {
+				alert('success to join');
+				navigate('/login');
+			} else {
+				return alert('fail to join');
+			}
+		});
 	};
 
 	return (

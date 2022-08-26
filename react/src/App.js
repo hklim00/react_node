@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
+import firebase from './firebase';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser, logoutUser } from './redux/userSlice';
 
 import Header from './common/Header';
 import Main from './common/Main';
@@ -11,6 +15,16 @@ import Login from './user/Login';
 import Join from './user/Join';
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		firebase.auth().onAuthStateChanged((userInfo) => {
+			console.log(userInfo);
+			if (userInfo === null) dispatch(logoutUser());
+			else dispatch(loginUser(userInfo.multiFactor.user));
+		});
+	}, []);
+
 	return (
 		<>
 			<GlobalStyle />

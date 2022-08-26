@@ -1,17 +1,20 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Create() {
 	const navigate = useNavigate();
+	const user = useSelector((store) => store.user);
+
 	const [Title, setTitle] = useState('');
 	const [Con, setCon] = useState('');
 
 	const handleCreate = () => {
 		if (Title.trim() === '' || Con.trim() === '')
 			return alert('please contain title & contents');
-		const item = { title: Title, content: Con };
+		const item = { title: Title, content: Con, uid: user.uid };
 
 		axios
 			.post('/api/community/create', item)

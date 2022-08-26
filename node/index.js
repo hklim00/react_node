@@ -11,7 +11,10 @@ app.use(express.static(path.join(__dirname, '../react/build')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 커뮤니티 전용 라우터
 app.use('/api/community', require('./router/communityRouter.js'));
+// user 전용라우터
+app.use('/api/user', require('./router/userRouter.js'))
 
 app.listen(port, () => {
 	mongoose
