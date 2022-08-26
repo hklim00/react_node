@@ -13,12 +13,12 @@ router.post('/create', (req, res) => {
 	Counter.findOne({ name: 'counter' })
 		.exec()
 		.then((doc) => {
-			temp.cummunityNum = doc.communityNum;
+			temp.communityNum = doc.communityNum;
 
 			User.findOne({ uid: temp.uid })
 				.exec()
 				.then((doc) => {
-					temp.write = doc._id;
+					temp.writer = doc._id;
 
 					const PostModel = new Post(temp);
 					PostModel.save().then(() => {

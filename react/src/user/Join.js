@@ -37,7 +37,7 @@ function Join() {
 
 		firebase.auth().signOut();
 
-		axios.post('api/user/join', item).then((res) => {
+		axios.post('/api/user/join', item).then((res) => {
 			if (res.data.success) {
 				alert('success to join');
 				navigate('/login');
@@ -74,7 +74,7 @@ function Join() {
 				onChange={(e) => setName(e.target.value)}
 			/>
 			<BtnSet>
-				<button>Cancel</button>
+				<button onClick={() => navigate('/')}>Cancel</button>
 				<button onClick={handleJoin}>Join</button>
 			</BtnSet>
 		</Layout>

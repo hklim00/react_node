@@ -66,7 +66,7 @@ function Detail() {
 						<br />
 						<p>Write : {Detail.writer.displayName}</p>
 					</DetailWrap>
-					{user.uid === Detail.writeruid && (
+					{user.uid === Detail.writer.uid && (
 						<BtnSet>
 							<button>
 								<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const BtnSet = styled.div`
 	margin-top: 20px;
 `;
+
 function Edit() {
 	const params = useParams();
 	const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Edit() {
 		axios.post('/api/community/edit', item).then((res) => {
 			if (res.data.success) {
 				alert('success to edit text');
-				navigate(`/detail/${item.num}`);
+				navigate(`/detail/${params.num}`);
 			} else {
 				alert('fail to edit text');
 			}

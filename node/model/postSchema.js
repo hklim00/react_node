@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema(
 			ref: 'User',
 		},
 	},
-	{ collection: 'Posts' }
+	{ collection: 'Posts', timestamps: true }
 );
 
 const Post = mongoose.model('Post', postSchema);

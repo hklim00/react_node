@@ -37,7 +37,7 @@ function List() {
 							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 						</h2>
 						<br />
-						{/* <p>Write : {post.writer.displayName}</p> */}
+						<p>Writer : {post.writer.displayName}</p>
 					</Item>
 				);
 			})}

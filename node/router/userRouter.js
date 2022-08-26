@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../model/userSchema');
-const { Counter } = require('../model/counterSchema');
+const { User } = require('../model/userSchema.js');
+const { Counter } = require('../model/counterSchema.js');
 
 router.post('/join', (req, res) => {
 	const temp = req.body;
